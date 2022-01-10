@@ -12,14 +12,10 @@ class TurnUserAdminUseCase {
     const user = this.usersRepository.findById(user_id)
 
     if(!user){
-      throw new Error("User ID do not exist")
+      throw new Error("User do not exists");
     }
 
-    if(user.admin){
-      return this.usersRepository.turnAdmin(user)
-    }
-
-    throw new Error("Only admin can turn user in admin")
+    return this.usersRepository.turnAdmin(user)
   }
 }
 

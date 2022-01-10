@@ -18,14 +18,29 @@ class UsersRepository implements IUsersRepository {
     return UsersRepository.INSTANCE;
   }
 
-  create({ name, email }: ICreateUserDTO): User {
+  create({ name, email, admin }: ICreateUserDTO): User {
     const user = new User()
+
+    if(admin){
+      Object.assign(user, {
+        name, 
+        email,
+        admin,
+        created_at: new Date(),
+        updated_at: new Date()
+      })
+  
+      this.users.push(user)
+      
+      return user
+    }
 
     Object.assign(user, {
       name, 
       email,
       admin: false,
-      created_at: new Date()
+      created_at: new Date(),
+      updated_at: new Date()
     })
 
     this.users.push(user)
